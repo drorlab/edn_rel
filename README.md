@@ -10,20 +10,40 @@ EDN is designed to predict the GDT-TS score of a protein model.
 
 ### Create conda environment
 
-To create the conda environment and install the required libraries to run the EDN code,
-run the following:
 ```
-conda env create -f environment.yml
+conda create -n edn python=3.9 pip
 conda activate edn
 ```
+### Install pytorch
 
-If you want to change the name of your conda environment to something else, change the name declared in the `environment.yml`.
+Install appropriate versions of torch and attendant libraries.  You need to figure out the appropriate version of cuda you have on your system, and set below.  Currently shown for cuda 11.7, if you want to install for CPU only, use CUDA="".
+
+```
+TORCH="1.13.0"
+CUDA="cu117"
+pip install torch==${TORCH}+${CUDA} -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch-scatter -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install torch-sparse -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install torch-geometric
+
+pip install torch-cluster -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+pip install torch-spline-conv -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+```
+### Install pytorch-lightning and other generic dependencies.
+
+`pip install pytorch-lightning python-dotenv wandb`
 
 ### Install e3nn
 
 In addition, we need to install the EDN-compatible version of the e3nn library (https://github.com/e3nn/e3nn). Please note that the specific version is only provided for compatability, further development should be done using the main e3nn branch.
 
 `pip install git+ssh://git@github.com/drorlab/e3nn_edn.git`
+
+### Install atom3d
+
+Install of atom3d:
+
+`pip install atom3d`
 
 ## Usage
 
